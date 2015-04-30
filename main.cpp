@@ -1,14 +1,14 @@
-#include <ViewManagement.h>
 #include <QGuiApplication>
-#include <QScopedPointer>
+#include <QQmlApplicationEngine>
+#include <QQuickView> //Not using QQmlApplicationEngine because many examples don't have a Window{}
 
-int main(int ac, char **av)
+int main(int argc, char* argv[])
 {
-    QScopedPointer<QGuiApplication> app(new QGuiApplication(ac, av));
-    ViewManagement *view = ViewManagement::getInstance();
-
-    view->setSource(QUrl("qrc:/qml/main.qml"));
-    view->show();
-
-    return app->exec();
+    QGuiApplication app(argc,argv);
+    QQmlApplicationEngine engine;
+    engine.load(QUrl("qrc:/qml/main.qml"));
+    QObject *topLevel = engine.rootObjects().value(0);
+    QQuickWindow *window = qobject_cast<QQuickWindow *>(topLevel);
+    window->show();
+    return app.exec();
 }

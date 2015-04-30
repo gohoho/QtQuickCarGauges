@@ -1,10 +1,10 @@
 PROJECT = CarDashboard
 
+QT          += qml quick core widgets
+
 SOURCES += main.cpp
 
 INCLUDEPATH += $$PWD
-
-include(./QtQuickViewManager/View.pri)
 
 RESOURCES += qml_resources.qrc
 
